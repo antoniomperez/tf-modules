@@ -2,15 +2,16 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "commit": "cz"
+    "commit": "node ./node_modules/cz-customizable/standalone.js"
   },
   "devDependencies": {
     "cz-conventional-changelog": "3.3.0",
+    "cz-customizable": "^6.3.0",
     "lerna": "^4.0.0"
   },
   "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+    "cz-customizable": {
+      "config": "config/cz-config.js"
     }
   }
 }
