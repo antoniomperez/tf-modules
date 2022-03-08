@@ -4,7 +4,12 @@
     "declaration": true,
     "declarationMap": true,
     "incremental": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "typeRoots": ["./node_modules/@types"]
   },
-  "references": []
+  "references": [
+    {
+      "path": "./packages/tf-scripts"
+    }
+  ]
 }
