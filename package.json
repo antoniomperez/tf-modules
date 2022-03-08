@@ -2,9 +2,14 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "lint": "eslint --ext .ts,.tsx",
+    "format": "prettier --check .",
     "commit": "node ./node_modules/cz-customizable/standalone.js",
     "prepare": "husky install"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.21",
