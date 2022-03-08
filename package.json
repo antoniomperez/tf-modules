@@ -2,11 +2,13 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "commit": "node ./node_modules/cz-customizable/standalone.js"
+    "commit": "node ./node_modules/cz-customizable/standalone.js",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "cz-conventional-changelog": "3.3.0",
     "cz-customizable": "^6.3.0",
+    "husky": "^7.0.0",
     "lerna": "^4.0.0"
   },
   "config": {
