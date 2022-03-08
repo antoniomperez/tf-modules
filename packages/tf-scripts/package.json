@@ -6,7 +6,7 @@
   "private": true,
   "author": "Antonio Márquez Pérez <antonio.marquezperez@everis.nttdata.com>",
   "license": "MIT",
-  "main": "dist/tf-scripts.js",
+  "main": "dist/src/tf.js",
   "directories": {
     "lib": "src",
     "test": "__tests__"
@@ -19,7 +19,7 @@
     "url": "git+https://github.com/antoniomperez/tf-modules.git"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/tf.ts",
     "build": "tsc -b",
     "test": "jest"
   },

@@ -17,6 +17,6 @@ const questions: QuestionCollection = [
   },
 ];
 
-inquirer.prompt(questions).then((answers) => {
+export default inquirer.prompt(questions).then((answers) => {
   console.log(JSON.stringify(answers, null, ' '));
 });
