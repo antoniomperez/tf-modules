@@ -6,7 +6,10 @@
   "private": true,
   "author": "Antonio Márquez Pérez <antonio.marquezperez@everis.nttdata.com>",
   "license": "MIT",
-  "main": "dist/src/tf.js",
+  "main": "./dist/tf.js",
+  "bin": {
+    "tf": "./bin/tf.js"
+  },
   "directories": {
     "lib": "src",
     "test": "__tests__"

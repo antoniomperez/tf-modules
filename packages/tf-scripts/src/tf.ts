@@ -1,27 +1,29 @@
 import { Command } from 'commander';
-import create from './create'
+import fs from 'fs';
+import create from './create/create';
 
-const program = new Command();
+const isRootFolder = () => {
+  if (fs.existsSync('lerna.json')) {
+    return true;
+  }
+  return false;
+};
 
-program
-  .name('tf')
-  .description('Terraform CLI to improve functionality')
-  .version('1.0.0');
+const cli = () => {
+  const program = new Command();
 
-program.addCommand(create());
+  program
+    .name('tf')
+    .description('Terraform CLI to improve functionality')
+    .version('1.0.0');
 
-program.parse(process.argv);
+  program.addCommand(create());
 
-/*  program
-  .command('create', 'Create modules')
-  .parse(process.argv);
-  
-  .description('Create a new Terraform Module')
-  .usage('--name <module-name> --provider <provider-name>')
-  .option('-N, --name <string>', 'Module name')
-  .option('-P, --provider <string>', 'Provider name')
-  .action(cmd => console.log(cmd))*/
-  
+  program.parse(process.argv);
+};
 
-
-
+if (isRootFolder()) {
+  cli();
+} else {
+  console.error('This CLI only work on root folder of the repository');
+}

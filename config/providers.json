@@ -1,0 +1,4 @@
+[
+  { "name": "aws", "description": "AWS" },
+  { "name": "azure", "description": "Azure" }
+]

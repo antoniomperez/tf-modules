@@ -1,4 +1,5 @@
-import inquirer, { QuestionCollection } from 'inquirer';
+import * as inquirer from 'inquirer';
+import { Answers, QuestionCollection } from 'inquirer';
 
 const questions: QuestionCollection = [
   {
@@ -17,6 +18,6 @@ const questions: QuestionCollection = [
   },
 ];
 
-export default inquirer.prompt(questions).then((answers) => {
+export default inquirer.prompt(questions).then((answers: Answers) => {
   console.log(JSON.stringify(answers, null, ' '));
 });
