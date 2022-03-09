@@ -2,16 +2,22 @@ import { Command } from 'commander';
 import * as inquirer from 'inquirer';
 import { Answers, QuestionCollection } from 'inquirer';
 import fs from 'fs-extra';
-import path from 'path';
+// import path from 'path';
+
+import {
+  rootPackagePath,
+  lernaConfigPath,
+  providerListPath,
+  checkFolderExist,
+  yarnWorkspace,
+  lernaConfig,
+  checkLernaWorkspace,
+} from '../helpers';
 
 interface Provider {
   name: string;
   description: string;
 }
-
-const rootPackagePath = path.join(process.cwd(), 'package.json');
-const lernaConfigPath = path.join(process.cwd(), 'lerna.json');
-const providerListPath = path.join(process.cwd(), 'config/providers.json');
 
 const providersDescription = (): string[] => {
   const providerDescription: string[] = [];
@@ -20,33 +26,6 @@ const providersDescription = (): string[] => {
     providerDescription.push(provider.description)
   );
   return providerDescription;
-};
-
-const checkFolderExist = (folder: string) => {
-  if (fs.existsSync(path.join(process.cwd(), folder))) {
-    return true;
-  }
-  return false;
-};
-
-const yarnWorkspace = () => {
-  const packageObj = fs.readJSONSync(rootPackagePath);
-  return packageObj.workspaces;
-};
-
-const lernaConfig = () => {
-  return fs.readJSONSync(lernaConfigPath);
-};
-
-const checkLernaWorkspace = (folder: string) => {
-  if (
-    checkFolderExist(folder) &&
-    yarnWorkspace().includes(`${folder}/*`) &&
-    lernaConfig().packages.includes(`${folder}/*`)
-  ) {
-    return true;
-  }
-  return false;
 };
 
 const createProvider = (provider: string) => {

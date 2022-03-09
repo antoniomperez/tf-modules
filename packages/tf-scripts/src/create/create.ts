@@ -9,6 +9,8 @@ const create = () => {
       'provider [command]',
       'Create a new provider folder to store its modules'
     )
+    .executableDir(__dirname)
+    .command('module [command]', 'Create a new module bolierplate')
     .executableDir(__dirname);
 
   return program;
