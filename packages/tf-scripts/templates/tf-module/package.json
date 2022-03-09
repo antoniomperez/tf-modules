@@ -1,0 +1,8 @@
+{
+  "name": "terraform-module",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Module description",
+  "keywords": [],
+  "license": "MIT"
+}
