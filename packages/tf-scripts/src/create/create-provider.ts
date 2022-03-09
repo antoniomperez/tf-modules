@@ -7,26 +7,12 @@ import fs from 'fs-extra';
 import {
   rootPackagePath,
   lernaConfigPath,
-  providerListPath,
   checkFolderExist,
   yarnWorkspace,
   lernaConfig,
   checkLernaWorkspace,
+  providersDescription,
 } from '../helpers';
-
-interface Provider {
-  name: string;
-  description: string;
-}
-
-const providersDescription = (): string[] => {
-  const providerDescription: string[] = [];
-  const providersList = fs.readJSONSync(providerListPath);
-  providersList.map((provider: Provider) =>
-    providerDescription.push(provider.description)
-  );
-  return providerDescription;
-};
 
 const createProvider = (provider: string) => {
   if (checkLernaWorkspace(provider)) {

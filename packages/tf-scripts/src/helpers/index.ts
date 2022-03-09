@@ -1,6 +1,11 @@
 import fs from 'fs-extra';
 import path from 'path';
 
+export interface Provider {
+  name: string;
+  description: string;
+}
+
 export const rootPackagePath = path.join(process.cwd(), 'package.json');
 export const lernaConfigPath = path.join(process.cwd(), 'lerna.json');
 export const providerListPath = path.join(
@@ -35,6 +40,15 @@ export const checkLernaWorkspace = (folder: string) => {
   return false;
 };
 
+export const providersDescription = (): string[] => {
+  const providerDescription: string[] = [];
+  const providersList = fs.readJSONSync(providerListPath);
+  providersList.map((provider: Provider) =>
+    providerDescription.push(provider.description)
+  );
+  return providerDescription;
+};
+
 export default {
   rootPackagePath,
   lernaConfigPath,
@@ -43,4 +57,5 @@ export default {
   yarnWorkspace,
   lernaConfig,
   checkLernaWorkspace,
+  providersDescription,
 };
