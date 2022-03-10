@@ -1,5 +1,5 @@
 {
-  "name": "terraform-module",
+  "name": "terraform-remote-state-s3",
   "version": "1.0.0",
   "private": false,
   "description": "Module description",
