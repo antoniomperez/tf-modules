@@ -22,7 +22,7 @@ jobs:
       - name: Module path
         id: location
         run: |
-          $LOCATION=npx lerna changed --json --all | jq '.[0] | .location' | tr -d '"'
+          $LOCATION=$(npx lerna changed --json --all | jq '.[0] | .location' | tr -d '"')
           echo "::set-output name=location::$LOCATION"
       - name: Terraform
         uses: hashicorp/setup-terraform@v1
