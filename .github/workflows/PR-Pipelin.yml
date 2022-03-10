@@ -8,7 +8,7 @@ name: PR-Pipeline
 
 env:
   DEV_DIRECTORY: dev
-  REGION: eu-central-1
+  REGION: eu-west-1
 
 jobs:
   validate:
@@ -24,8 +24,10 @@ jobs:
       - name: Module path
         id: location
         run: |
-          $LOCATION=$(npx lerna changed --json --all | jq '.[0] | .location' | tr -d '"')
+          npx lerna changed --json --all
+          $LOCATION=$(npx lerna changed --json --all | jq '.[] | .location' | tr -d '"')
           echo "::set-output name=location::$LOCATION"
+
       - name: Terraform
         uses: hashicorp/setup-terraform@v1
 
