@@ -1,0 +1,58 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+name: PR-Pipeline
+
+env:
+  DEV_DIRECTORY: dev
+  REGION: eu-west-1
+
+jobs:
+  validate:
+    if: startsWith(github.head_ref, 'module/') && !failure()
+    name: Validate module
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Module path
+        id: location
+        run: |
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          LOCATION=$(npx lerna updated --json --all --include-merged-tags | jq '.[] | .location' | tr -d '"')
+          echo "::set-output name=location::$LOCATION"
+
+      - name: Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Format
+        working-directory: '${{steps.location.outputs.location}}/${{ env.DEV_DIRECTORY }}'
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: false
+
+      - name: Terraform Init
+        working-directory: '${{steps.location.outputs.location}}/${{ env.DEV_DIRECTORY }}'
+        run: terraform init
+      - name: Terraform Initialize completed
+        run: echo "Terraform init has been completed"
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ env.REGION }}
+        working-directory: '${{steps.location.outputs.location}}/${{ env.DEV_DIRECTORY }}'
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: false
