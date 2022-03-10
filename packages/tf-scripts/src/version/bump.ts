@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 
 import { verifyRepoExist } from '../helpers/version';
+// eslint-disable-next-line import/no-unresolved
 import { ReleaseFile, Version, LernaRepository } from '../types';
 
 const releaseFileName = 'release.json';
@@ -66,7 +67,10 @@ const resolveVersion = (name: string) => {
 const changeReleaseType = (type: string, name: string) => {
   const repo = verifyRepoExist(name);
   const release = releaseFile(repo);
-  console.log(release);
+  release.releaseType = type;
+
+  const versionFileLocation = `${repo.location}/${releaseFileName}`;
+  fs.writeFileSync(versionFileLocation, JSON.stringify(release, null, 2));
 };
 
 // eslint-disable-next-line import/prefer-default-export
@@ -76,8 +80,20 @@ export async function createVersion(version: Version) {
     process.exit(1);
   }
 
+  if (version.firstRelease) {
+    changeReleaseType('alpha', version.name);
+  }
+
   if (version.beta) {
     changeReleaseType('beta', version.name);
+  }
+
+  if (version.rc) {
+    changeReleaseType('rc', version.name);
+  }
+
+  if (version.stable) {
+    changeReleaseType('stable', version.name);
   }
 
   const ver = resolveVersion(version.name);
@@ -91,8 +107,8 @@ export async function createVersion(version: Version) {
     bumpFiles: [ver.versionFilepath],
     infile: ver.changelogFile,
     prerelease: ver.prerelease,
+    releaseAs: version.releaseAs || undefined,
   };
 
   await standardVersion(opts);
-  changeReleaseType('', version.name);
 }

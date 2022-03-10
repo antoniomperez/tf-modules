@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import _ from 'lodash';
 
+// eslint-disable-next-line import/no-unresolved
 import { LernaRepository } from '../types';
 
 export const changedRepos = () => {
