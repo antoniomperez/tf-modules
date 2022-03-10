@@ -1,6 +1,7 @@
 export interface Version {
   firstRelease: boolean;
   dryRun: boolean;
+  alpha: boolean;
   beta: boolean;
   rc: boolean;
   stable: boolean;
