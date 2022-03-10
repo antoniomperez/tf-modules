@@ -75,6 +75,10 @@ jobs:
       - name: Installing packages
         run: yarn install
 
+      - name: Build tf-scripts
+        working-directory: packages/tf-scripts
+        run: yarn build
+
       - name: Installing tf scripts
         run: npm install -g ./packages/tf-scripts
 
