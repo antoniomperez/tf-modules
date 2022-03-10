@@ -8,10 +8,7 @@ terraform {
   }
 }
 
-provider "aws" {
-  region  = var.region
-  profile = var.profile
-}
+provider "aws" {}
 
 # Module
 module "terraform_remote_state_s3" {
