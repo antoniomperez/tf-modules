@@ -24,7 +24,7 @@ jobs:
       - name: Module path
         id: location
         run: |
-          git fetch --depth=0 origin +refs/tags/*:refs/tags/*
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           npx lerna updated --json --all --include-merged-tags
           $LOCATION=$(npx lerna updated --json --all --include-merged-tags | jq '.[] | .location' | tr -d '"')
           echo "::set-output name=location::$LOCATION"
