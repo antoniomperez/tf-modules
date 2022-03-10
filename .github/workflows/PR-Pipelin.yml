@@ -83,3 +83,8 @@ jobs:
 
       - name: Configuring Git user name
         run: git config --global user.name "Github Action Bot"
+
+      - name: bump
+        run: |
+          NAME=$(npx lerna updated --json --all --include-merged-tags | jq '.[] | .name' | tr -d '"')
+          tf version --dry-run --beta --name $NAME
