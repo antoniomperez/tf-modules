@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import fs from 'fs';
 import create from './create/create';
 import version from './version/version';
+import publish from './publish/publish';
 
 const isRootFolder = () => {
   if (fs.existsSync('lerna.json')) {
@@ -20,6 +21,7 @@ const cli = () => {
 
   program.addCommand(create());
   program.addCommand(version());
+  program.addCommand(publish());
 
   program.parse(process.argv);
 };

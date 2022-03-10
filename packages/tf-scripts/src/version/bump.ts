@@ -107,7 +107,7 @@ export async function createVersion(version: Version) {
     bumpFiles: [ver.versionFilepath],
     infile: ver.changelogFile,
     prerelease: ver.prerelease,
-    releaseAs: '1.0.0-alpha.0', //version.releaseAs || undefined,
+    releaseAs: version.releaseAs || undefined,
     path: ver.versionFilepath,
   };
 
