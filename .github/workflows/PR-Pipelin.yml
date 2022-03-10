@@ -24,9 +24,9 @@ jobs:
       - name: Module path
         id: location
         run: |
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          npx lerna changed --json --all
-          $LOCATION=$(npx lerna changed --json --all | jq '.[] | .location' | tr -d '"')
+          git fetch --depth=0 origin +refs/tags/*:refs/tags/*
+          npx lerna updated --json --all --include-merged-tags
+          $LOCATION=$(npx lerna updated --json --all --include-merged-tags | jq '.[] | .location' | tr -d '"')
           echo "::set-output name=location::$LOCATION"
 
       - name: Terraform
