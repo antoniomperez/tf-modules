@@ -90,5 +90,9 @@ jobs:
 
       - name: bump
         run: |
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           NAME=$(npx lerna updated --json --all --include-merged-tags | jq '.[] | .name' | tr -d '"')
-          tf version --dry-run --beta --name $NAME
+          tf version --beta --name $NAME
+
+      - name: Pushing Release tag
+        run: git push --follow-tags origin HEAD:${GITHUB_HEAD_REF}
