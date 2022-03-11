@@ -1,0 +1,29 @@
+{
+  "name": "terraform-cloud",
+  "version": "1.0.0",
+  "description": "Terraform Cloud NodeJS SDK",
+  "keywords": [
+    "terraform"
+  ],
+  "author": "Antonio Márquez Pérez <antonio.marquezperez@everis.nttdata.com>",
+  "homepage": "https://github.com/antoniomperez/tf-modules#readme",
+  "license": "MIT",
+  "main": "lib/terraform-cloud.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoniomperez/tf-modules.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/antoniomperez/tf-modules/issues"
+  }
+}
