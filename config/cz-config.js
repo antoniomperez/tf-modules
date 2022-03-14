@@ -32,7 +32,7 @@ module.exports = {
     { value: 'WIP', name: 'WIP:      Work in progress' },
   ],
 
-  scopes: [{ name: 'actions' }, { name: 'terraform-cloud' }],
+  scopes: [{ name: 'actions' }, { name: 'terraform-cloud-node-sdk' }],
 
   allowTicketNumber: true,
   isTicketNumberRequired: false,

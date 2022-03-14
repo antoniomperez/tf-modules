@@ -1,5 +1,7 @@
-interface TerraformOrganization {
-  organization: string;
+import { AxiosResponse } from 'axios';
+
+export interface TerraformOrganization {
+  name: string;
 }
 
 interface TerraformVersionStatus {
@@ -45,4 +47,9 @@ export interface TerraformModuleResponse {
       };
     };
   };
+}
+
+export interface TerraformModule {
+  // eslint-disable-next-line no-unused-vars
+  listModules(organization: string): Promise<AxiosResponse>;
 }

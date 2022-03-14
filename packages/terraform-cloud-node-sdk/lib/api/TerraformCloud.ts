@@ -1,8 +1,10 @@
 import terraformCloudClient from './TerraformCloudClient';
 import Modules from './Modules';
 
+import { TerraformModule } from '../types/modules';
+
 export class TerraformCloud {
-  public modules;
+  public modules: TerraformModule;
 
   constructor(token: string) {
     const client = terraformCloudClient(token);

@@ -1,17 +1,16 @@
 import { AxiosInstance } from 'axios';
-// eslint-disable-next-line import/no-unresolved
-import { TerraformOrganization } from '../types/Modules';
+import { TerraformModule } from '../types/modules';
 
-export default class Modules {
+export default class Modules implements TerraformModule {
   private client: AxiosInstance;
 
   constructor(client: AxiosInstance) {
     this.client = client;
   }
 
-  async getModules(organization: TerraformOrganization) {
+  async listModules(organization: string) {
     const path = `/organizations/${organization}/registry-modules`;
-    console.log('PATH: ', path);
-    return await this.client.get(path);
+    const response = await this.client.get(path);
+    return response.data;
   }
 }

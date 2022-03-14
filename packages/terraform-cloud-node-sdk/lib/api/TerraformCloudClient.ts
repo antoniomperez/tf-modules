@@ -1,8 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-const terraformCloudClient = (token: string) => {
+const terraformCloudClient = (token: string): AxiosInstance => {
   const baseUrl = 'https://app.terraform.io/api/v2';
-  const client: AxiosInstance = axios.create({ baseURL: baseUrl });
+  const client: AxiosInstance = axios.create({
+    baseURL: baseUrl,
+  });
 
   client.interceptors.request.use((request: AxiosRequestConfig) => {
     request.headers = {
