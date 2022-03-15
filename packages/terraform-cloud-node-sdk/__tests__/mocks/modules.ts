@@ -126,3 +126,29 @@ export const ModuleListMock = {
     },
   },
 };
+
+export const ModuleVersionMock = {
+  data: {
+    id: 'modver-qjjF7ArLXJSWU3WU',
+    type: 'registry-module-versions',
+    attributes: {
+      source: 'tfe-api',
+      status: 'pending',
+      version: '1.2.3',
+      'created-at': '2018-09-24T20:47:20.931Z',
+      'updated-at': '2018-09-24T20:47:20.931Z',
+    },
+    relationships: {
+      'registry-module': {
+        data: {
+          id: '1881',
+          type: 'registry-modules',
+        },
+      },
+    },
+    links: {
+      upload:
+        'https://archivist.terraform.io/v1/object/dmF1bHQ6djE6NWJPbHQ4QjV4R1ox...',
+    },
+  },
+};

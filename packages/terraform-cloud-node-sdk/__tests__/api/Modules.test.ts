@@ -1,13 +1,15 @@
 import nock from 'nock';
 
 import { TerraformCloud } from '../../lib/api/TerraformCloud';
-import { ModuleMock } from '../mocks/modules';
+import { ModuleMock, ModuleVersionMock } from '../mocks/modules';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 describe('Terraform Private Registry', () => {
   const organization = 'my-organization';
+  const provider = 'aws';
+  const name = 'my-module';
   const terraform = new TerraformCloud(process.env.TF_CLOUD_TOKEN as string);
 
   it('should create a new Module', async () => {
@@ -24,5 +26,21 @@ describe('Terraform Private Registry', () => {
     expect(modules.data.attributes.name).toBe('my-module');
     expect(modules.data.attributes.namespace).toBe(organization);
     expect(modules.data.attributes.provider).toBe('aws');
+  });
+
+  it('should add new version on the module', async () => {
+    nock('https://app.terraform.io/api/v2')
+      .post(
+        `/organizations/${organization}/registry-modules/private/${organization}/${name}/${provider}/versions`
+      )
+      .reply(201, ModuleVersionMock);
+
+    const module = await terraform.modules.createModuleVersion(organization, {
+      provider,
+      name,
+      version: '1.2.3',
+    });
+
+    expect(module.data.attributes.version).toBe('1.2.3');
   });
 });

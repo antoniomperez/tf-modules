@@ -42,14 +42,56 @@ export interface TerraformModuleResponse {
   };
 }
 
-export interface TerraformPrivateModuleAttributes {
+export interface TerraformModuleVersionResponse {
+  data: {
+    id: string;
+    type: string;
+    attributes: {
+      source: string;
+      status: string;
+      version: string;
+      'created-at': string;
+      'updated-at': string;
+    };
+    relationships: {
+      'registry-module': {
+        data: {
+          id: string;
+          type: string;
+        };
+      };
+    };
+    links: {
+      upload: string;
+    };
+  };
+}
+
+interface TerraformModuleAttributes {
   name: string;
   provider: string;
+}
+
+interface TerraformModuleVersion {
+  version: string;
+}
+
+export interface TerraformPrivateModuleAttributes
+  extends TerraformModuleAttributes {
   registryName: 'private' | 'public';
 }
+
+export interface TerraformModuleVersionAttributes
+  extends TerraformModuleAttributes,
+    TerraformModuleVersion {}
+
 export interface TerraformModule {
   createModule(
     organization: string,
     attributes: TerraformPrivateModuleAttributes
-  ): Promise<AxiosResponse>;
+  ): Promise<TerraformModuleResponse>;
+  createModuleVersion(
+    organization: string,
+    attributes: TerraformModuleVersionAttributes
+  ): Promise<TerraformModuleVersionResponse>;
 }
