@@ -5,6 +5,7 @@ import {
   TerraformModule,
   TerraformPrivateModuleAttributes,
   TerraformModuleVersionAttributes,
+  // eslint-disable-next-line import/no-unresolved
 } from '../types/modules';
 
 export default class Modules implements TerraformModule {

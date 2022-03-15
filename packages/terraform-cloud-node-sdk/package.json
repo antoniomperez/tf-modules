@@ -8,7 +8,7 @@
   "author": "Antonio Márquez Pérez <antonio.marquezperez@everis.nttdata.com>",
   "homepage": "https://github.com/antoniomperez/tf-modules#readme",
   "license": "MIT",
-  "main": "lib/terraform-cloud.js",
+  "main": "dist/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -22,6 +22,7 @@
   },
   "scripts": {
     "dotenv": "node ./scripts/env.js",
+    "build": "tsc -b",
     "test": "jest"
   },
   "bugs": {
@@ -39,5 +40,6 @@
   "dependencies": {
     "axios": "^0.26.1",
     "dotenv": "^16.0.0"
-  }
+  },
+  "types": "./types/modules.d.ts"
 }
