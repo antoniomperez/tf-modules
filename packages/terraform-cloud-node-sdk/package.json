@@ -41,5 +41,5 @@
     "axios": "^0.26.1",
     "dotenv": "^16.0.0"
   },
-  "types": "./types/modules.d.ts"
+  "types": "./dist/index.d.ts"
 }

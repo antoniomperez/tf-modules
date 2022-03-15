@@ -1,5 +1,5 @@
-import nock from 'nock';
-import path from 'path';
+import * as nock from 'nock';
+import * as path from 'path';
 
 import { TerraformCloud } from '../../lib/api/TerraformCloud';
 import { ModuleMock, ModuleVersionMock } from '../mocks/modules';
