@@ -9,7 +9,8 @@
   },
   "workspaces": [
     "packages/*",
-    "aws/*"
+    "aws/*",
+    "modules/@aws/*"
   ],
   "devDependencies": {
     "@types/jest": "^27.4.1",

@@ -1,0 +1,14 @@
+{
+  "name": "@aws/tf-remote-state-s3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Create a S3 bucket and a dynamoDB table to store and locked remote state",
+  "keywords": [],
+  "license": "MIT",
+  "scripts": {
+    "release": "standard-version"
+  },
+  "dependencies": {
+    "standard-version": "^9.3.2"
+  }
+}

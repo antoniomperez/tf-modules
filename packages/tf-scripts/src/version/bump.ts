@@ -80,7 +80,7 @@ export async function createVersion(version: Version) {
     process.exit(1);
   }
 
-  if (version.firstRelease) {
+  if (version.alpha) {
     changeReleaseType('alpha', version.name);
   }
 
@@ -108,6 +108,7 @@ export async function createVersion(version: Version) {
     infile: ver.changelogFile,
     prerelease: ver.prerelease,
     releaseAs: version.releaseAs || undefined,
+    path: ver.versionFilepath,
   };
 
   await standardVersion(opts);

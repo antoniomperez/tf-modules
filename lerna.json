@@ -1,8 +1,5 @@
 {
-  "packages": [
-    "packages/*",
-    "aws/*"
-  ],
+  "packages": ["packages/*", "aws/*", "modules/@aws/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "version": "independent"
