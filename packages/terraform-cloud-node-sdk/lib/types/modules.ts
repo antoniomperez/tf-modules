@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { AxiosResponse } from 'axios';
 
 export interface TerraformOrganization {
@@ -16,40 +17,39 @@ export interface TerraformModuleResponse {
       name: string;
       provider: string;
       namespace: string;
-      'register-name': string;
+      'registry-name': string;
       status: string;
-      'version-statuses': [TerraformVersionStatus];
+      'version-statuses': [TerraformVersionStatus] | [];
       'created-at': string;
       'updated-at': string;
-      'vcs-repo'?: {
-        branch: string;
-        'ingress-submodules': boolean;
-        identifier: string;
-        'display-identifier': string;
-        'oauth-token-id': string;
-        'webhook-url': string;
-      };
-      permisions: {
+      permissions: {
         'can-delete': boolean;
         'can-resync': boolean;
         'can-retry': boolean;
       };
-      relationships: {
-        organization: {
-          data: {
-            id: string;
-            type: string;
-          };
+    };
+    relationships: {
+      organization: {
+        data: {
+          id: string;
+          type: string;
         };
       };
-      links: {
-        self: string;
-      };
+    };
+    links: {
+      self: string;
     };
   };
 }
 
+export interface TerraformPrivateModuleAttributes {
+  name: string;
+  provider: string;
+  registryName: 'private' | 'public';
+}
 export interface TerraformModule {
-  // eslint-disable-next-line no-unused-vars
-  listModules(organization: string): Promise<AxiosResponse>;
+  createModule(
+    organization: string,
+    attributes: TerraformPrivateModuleAttributes
+  ): Promise<AxiosResponse>;
 }

@@ -1,16 +1,47 @@
-import { AxiosInstance } from 'axios';
-import { TerraformModule } from '../types/modules';
+import axios, { AxiosRequestConfig } from 'axios';
+import {
+  TerraformModule,
+  TerraformPrivateModuleAttributes,
+} from '../types/modules';
 
 export default class Modules implements TerraformModule {
-  private client: AxiosInstance;
+  private token: string;
 
-  constructor(client: AxiosInstance) {
-    this.client = client;
+  constructor(token: string) {
+    this.token = token;
   }
 
-  async listModules(organization: string) {
-    const path = `/organizations/${organization}/registry-modules`;
-    const response = await this.client.get(path);
-    return response.data;
+  async createModule(
+    organization: string,
+    attributes: TerraformPrivateModuleAttributes
+  ) {
+    const terraformBaseApiUrl = 'https://app.terraform.io/api/v2';
+
+    const axiosConfig: AxiosRequestConfig = {
+      baseURL: terraformBaseApiUrl,
+      url: `/organizations/${organization}/registry-modules/`,
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        'Content-Type': 'application/vnd.api+json',
+      },
+      data: {
+        data: {
+          type: 'registry-modules',
+          attributes: {
+            name: attributes.name,
+            provider: attributes.provider,
+            'registry-name': attributes.registryName,
+          },
+        },
+      },
+    };
+
+    try {
+      const response = await axios(axiosConfig);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
   }
 }

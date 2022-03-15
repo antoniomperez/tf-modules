@@ -1,30 +1,28 @@
-import { server, rest } from '../../testServer';
+import nock from 'nock';
+
 import { TerraformCloud } from '../../lib/api/TerraformCloud';
-import modulesList from '../../lib/mocks/modulesResponse.json';
+import { ModuleMock } from '../mocks/modules';
 
-describe('Terraform Cloud', () => {
-  const fakeToken = '98eu948eo4hf84e4o8je4';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
+
+describe('Terraform Private Registry', () => {
   const organization = 'my-organization';
-  const endpoint = `https://app.terraform.io/api/v2/organizations/${organization}/registry-modules`;
-  const terraform = new TerraformCloud(fakeToken);
+  const terraform = new TerraformCloud(process.env.TF_CLOUD_TOKEN as string);
 
-  it('should list no modules', async () => {
-    server.use(
-      rest.get(endpoint, (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json({ data: [] }));
-      })
-    );
+  it('should create a new Module', async () => {
+    nock('https://app.terraform.io/api/v2')
+      .post(`/organizations/${organization}/registry-modules/`)
+      .reply(201, ModuleMock);
 
-    const modules = await terraform.modules.listModules(organization);
-    expect(modules.data).toHaveLength(0);
-  });
-  it('should list one module', async () => {
-    server.use(
-      rest.get(endpoint, (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json({ data: [modulesList.data[0]] }));
-      })
-    );
-    const modules = await terraform.modules.listModules(organization);
-    expect(modules.data).toHaveLength(1);
+    const modules = await terraform.modules.createModule(organization, {
+      name: 'my-module',
+      provider: 'aws',
+      registryName: 'private',
+    });
+
+    expect(modules.data.attributes.name).toBe('my-module');
+    expect(modules.data.attributes.namespace).toBe(organization);
+    expect(modules.data.attributes.provider).toBe('aws');
   });
 });
