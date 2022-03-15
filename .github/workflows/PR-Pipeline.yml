@@ -12,6 +12,7 @@ env:
 
 jobs:
   validate:
+    if: startsWith(github.head_ref, 'module/')
     name: Validate module
     runs-on: ubuntu-latest
     environment: dev
@@ -57,11 +58,11 @@ jobs:
         continue-on-error: false
 
   version:
+    if: startsWith(github.head_ref, 'module/') && '!failure()'
     name: Bump version
     runs-on: ubuntu-latest
     environment: dev
     needs: validate
-    if: '!failure()'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
