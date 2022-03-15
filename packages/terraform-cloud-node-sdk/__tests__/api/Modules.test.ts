@@ -1,4 +1,5 @@
 import nock from 'nock';
+import path from 'path';
 
 import { TerraformCloud } from '../../lib/api/TerraformCloud';
 import { ModuleMock, ModuleVersionMock } from '../mocks/modules';
@@ -42,5 +43,19 @@ describe('Terraform Private Registry', () => {
     });
 
     expect(module.data.attributes.version).toBe('1.2.3');
+  });
+
+  it('should upload the module', async () => {
+    const uploadLink = 'https://archivist.terraform.io';
+    nock(uploadLink)
+      .put('/v1/object/dmF1bHQ6djE6NWJPbHQ4QjV4R1ox')
+      .reply(201, 'ok');
+
+    const response = await terraform.modules.uploadModule(
+      `${uploadLink}/v1/object/dmF1bHQ6djE6NWJPbHQ4QjV4R1ox`,
+      path.join(process.cwd(), '/module.tar.gz')
+    );
+    console.log(response);
+    expect(response).toBe('ok');
   });
 });

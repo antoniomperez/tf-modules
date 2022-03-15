@@ -148,7 +148,7 @@ export const ModuleVersionMock = {
     },
     links: {
       upload:
-        'https://archivist.terraform.io/v1/object/dmF1bHQ6djE6NWJPbHQ4QjV4R1ox...',
+        'https://archivist.terraform.io/v1/object/dmF1bHQ6djE6NWJPbHQ4QjV4R1ox',
     },
   },
 };

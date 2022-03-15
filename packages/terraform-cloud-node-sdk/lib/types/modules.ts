@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { AxiosResponse } from 'axios';
-
+/* eslint-disable no-unused-vars */
 export interface TerraformOrganization {
   name: string;
 }
@@ -94,4 +93,5 @@ export interface TerraformModule {
     organization: string,
     attributes: TerraformModuleVersionAttributes
   ): Promise<TerraformModuleVersionResponse>;
+  uploadModule(uploadLink: string, filePath: string): Promise<AxiosResponse>;
 }

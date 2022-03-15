@@ -1,4 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import fs from 'fs';
+
 import {
   TerraformModule,
   TerraformPrivateModuleAttributes,
@@ -67,6 +69,25 @@ export default class Modules implements TerraformModule {
           },
         },
       },
+    };
+
+    try {
+      const response = await axios(axiosConfig);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async uploadModule(uploadLink: string, filePath: string) {
+    const axiosConfig: AxiosRequestConfig = {
+      url: uploadLink,
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/octet-stream',
+      },
+      data: fs.createReadStream(filePath),
     };
 
     try {
